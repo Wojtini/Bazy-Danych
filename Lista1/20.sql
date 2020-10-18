@@ -1,4 +1,4 @@
-SELECT art.Name,tra.Name
+SELECT tra.Name
 FROM artist AS art
 JOIN album AS alb
 JOIN track AS tra

@@ -1,4 +1,4 @@
-SELECT empt.EmployeeID,empt.FirstName,empt.LastName,empt.City
+SELECT empt.FirstName,empt.LastName
 FROM employee AS empt
 WHERE empt.EmployeeID NOT IN
 (

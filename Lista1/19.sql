@@ -1,4 +1,4 @@
-SELECT DISTINCT art.Name,alb.Title,alb2.Title,art2.Name
+SELECT DISTINCT art.Name,alb.Title,art2.Name
 FROM artist AS art
 JOIN album AS alb
 JOIN album AS alb2

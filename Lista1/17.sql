@@ -1,4 +1,4 @@
-SELECT art.Name,COUNT(art.ArtistId)
+SELECT art.Name,COUNT(art.ArtistId) AS licznik
 FROM artist AS art
 JOIN album AS alb
 JOIN track AS tra
@@ -8,3 +8,5 @@ AND gen.GenreId=tra.GenreId
 AND (gen.Name="Metal" OR gen.Name="Heavy Metal")
 )
 GROUP BY art.Name
+ORDER BY licznik DESC
+LIMIT 1
