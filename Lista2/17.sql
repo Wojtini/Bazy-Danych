@@ -11,7 +11,7 @@ WITH RECURSIVE rec AS (
 )
 SELECT SUM(sum) AS wynik FROM rec WHERE final = 1
 ';
-EXECUTE zad17 USING 18,9;
+EXECUTE zad17 USING 16,8;
 
 #16 8
 #18 9 almost
