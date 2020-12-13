@@ -1,0 +1,28 @@
+
+	[
+		{
+			"tytul": "AlbumNumer1",
+			"gatunek": "Rock",
+			"zespol": 301
+		},
+		{
+			"tytul": "AlbumNumer2",
+			"gatunek": "Heavy Metal",
+			"zespol": 300
+		},
+		{
+			"tytul": "AlbumNumer3",
+			"gatunek": "Opera",
+			"zespol": 299
+		},
+		{
+			"tytul": "AlbumNumer4",
+			"gatunek": "Classical",
+			"zespol": 298
+		},
+		{
+			"tytul": "AlbumNumer5",
+			"gatunek": "Latin",
+			"zespol": 295
+		}
+	]

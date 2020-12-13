@@ -1,0 +1,25 @@
+254613, Wojciech Maziarz
+
+HeidiSQL:
+Prawym przciskiem na bazę danych -> eksport do pliku .sql
+Ustawiam opcje
+	1) "Utwórz" i "Usun" dla Tabeli oraz Bazy danych
+	2) Dane "Delete + insert"
+Następnie wykonuję eksport do pojedyńczego pliku .sql
+
+Usuwam bazę danych i uruchamiam wcześnie wyeksportowany plik .sql
+
+CMD:
+Robienie backup'u
+mysqldump -u root -p root Music > backup.sql
+[MariaDB]
+	create database cmddb;
+	use cmddb;
+[/MariaDB]
+Restorowanie backup'u
+mysql -u root -p cmddb < backup.sql
+
+Można też usunąć Music oraz stworzyć ją na nowo i wtedy do niej zrestorować dane.
+
+Pełna kopia zapasowa zapisuje WSZYSTKIE dane bazy w momencie jej utworzenia,
+natomiast kopia różnicowa zapisuje tylko dane, które zostały zmodyfikowane od ostatniej pełnej kopii zapasowej.

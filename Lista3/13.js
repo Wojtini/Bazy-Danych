@@ -1,0 +1,2 @@
+use MDBMusic
+show collections
